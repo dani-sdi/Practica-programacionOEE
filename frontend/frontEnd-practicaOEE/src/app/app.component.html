@@ -1,0 +1,33 @@
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">{{title}}</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf="!identity">
+        
+          <li class="nav-item active">
+            <span class="glyphicon glyphicon-user"></span>
+            <a href="/login" class="nav-link">Iniciar sesión</a>
+          </li>
+          <li class="nav-item active">
+            <span class="glyphicon glyphicon-user"></span>
+            <a href="/registro" class="nav-link">Registrarse</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf="identity">
+          <li class="nav-item active">
+            <span class="glyphicon glyphicon-user"></span>
+            <a class="nav-link" (click)="logout()">Cerrar sesión</a>
+          </li>
+          <li class="nav-item active">
+            <span class="glyphicon glyphicon-user"></span>
+            <a href="/listaUsuarios" class="nav-link">Ver lista de usuarios</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<router-outlet></router-outlet>
