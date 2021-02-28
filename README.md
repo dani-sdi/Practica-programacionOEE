@@ -2,7 +2,7 @@
 
 <h2>Backend</h2>
 <p>Para cambiar la memoria empleada en la aplicación:
-<p>En la clase controlador usuarios Controlador usuarios dentro del paquete com.app.practicaOEEDaniel.controladores, cambiar la variable tipoMemoria.</p>
+<p>En la clase  usuariosControlador, dentro del paquete com.app.practicaOEEDaniel.controladores, cambiar la variable tipoMemoria.</p>
 <ul>
   <li>0: Emplea la sesión (Memoria volatil)</li>
   <li>1: Emplea MongoDB (Memoria permanente)</li>
