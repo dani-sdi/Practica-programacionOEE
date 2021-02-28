@@ -13,6 +13,9 @@ import com.app.practicaOEEDaniel.modelos.Usuario;
 
 @Controller
 public class Sesion {	
+	/*
+	 * Crea el array de susuarios guardados en el caso de no existir
+	 */
 	public static boolean crearSesion(Model model,Usuario usuario, HttpSession session) {
 		try {
 			List<Usuario> usuarios = (List<Usuario>) session.getAttribute("usuarios");
@@ -27,6 +30,9 @@ public class Sesion {
 		}	
 	}
 	
+	/*
+	 * Agrega un nuevo usuario a la variable de sesión "usuarios"
+	 */
 	public static boolean guardarUsuario(Usuario usuario, HttpServletRequest  request) {
 		System.out.println("Hola mundo desde la sesion");
 		try {
@@ -44,6 +50,9 @@ public class Sesion {
 		}	
 	}
 	
+	/*
+	 * Lista los usuarios guardados en el array
+	 */
 	public static List<Usuario> getUsuarios(HttpServletRequest  request){
 		List<Usuario> usuarios = (ArrayList<Usuario>) request.getSession().getAttribute("usuarios");
 		System.out.println(request.getSession());

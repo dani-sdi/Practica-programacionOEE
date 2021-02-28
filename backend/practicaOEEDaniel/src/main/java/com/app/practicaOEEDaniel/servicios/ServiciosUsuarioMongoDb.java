@@ -31,15 +31,18 @@ public class ServiciosUsuarioMongoDb implements IServiciosUsuario {
 	@Autowired
 	MongoDB repository;
 	
+
 	@Override
 	public ResponseEntity<String> guardar(String nombre, String email, int edad, String pass,
 		HttpServletRequest request, BCryptPasswordEncoder passCrpyt) {
 		try {
+			//Comprobamos si existe un usuario con el email introducido.
 			Usuario user = repository.findUsuarioByEmail(email);
 			if (user != null) {
 				return new ResponseEntity<>("{\"message\":\"Este email ya está registrado\"}", HttpStatus.CONFLICT);
 			}
 			
+			//Encriptamos la contraseña antes de ser guardada
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			Usuario usuario = new Usuario(nombre,email,edad,passwordEncoder.encode(pass));
 			usuario = repository.save(usuario);
@@ -66,6 +69,7 @@ public class ServiciosUsuarioMongoDb implements IServiciosUsuario {
 	@Override
 	public ResponseEntity<String> borrarUsuario(String id, HttpServletRequest request) {	
 		try {
+			//Antes de borrar el usuario comprobamos que existe.
 			Usuario usuario = repository.findById(id).orElse(null);
 			if(usuario == null) {
 				return new ResponseEntity<>("{\"message\":\"El usuario no existe\"}", HttpStatus.NOT_FOUND);
@@ -107,17 +111,20 @@ public class ServiciosUsuarioMongoDb implements IServiciosUsuario {
 		try {
 			boolean passCorrecta;
 			
+			//Comprobamos si el usuario existe.
 			Usuario usuario = repository.findUsuarioByEmail(email);
 			if (usuario == null) {
 				return new ResponseEntity<>("{\"message\":\"No hay ningún usuario con este email\"}", HttpStatus.NOT_FOUND);
 			}
 
+			//Se cimprueba si las contraseñas coinciden utilizando BCrypt.
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			passCorrecta = passwordEncoder.matches(pass,usuario.getPass());
 			
+			
 			if (passCorrecta) {			
-				String token = getJWTToken(email);
-				usuario.setToken(token);						
+				String token = getJWTToken(email); //Generamos un token para este usuario.
+				usuario.setToken(token); //Aasignamos el token para futuras peticiones.
 				return new ResponseEntity<>(usuario.toString(), HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>("{\"message\":\"Contraseña incorrecta\"}", HttpStatus.NOT_ACCEPTABLE);

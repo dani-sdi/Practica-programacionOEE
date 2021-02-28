@@ -28,8 +28,8 @@ import com.app.practicaOEEDaniel.servicios.ServiciosUsuarioSesion;
 public class ControladorUsuarios{
 	
 	private byte tipoMemoria = 1;
-	private final byte SESSION = 0;
-	private final byte MONGODB = 1;
+	private final byte SESSION = 0; // Memoria volatil.
+	private final byte MONGODB = 1; // Memoria permanente.
 			
 	@Autowired
 	BCryptPasswordEncoder passCrpyt;
@@ -43,8 +43,9 @@ public class ControladorUsuarios{
 	ServiciosUsuarioMongoDb usuarioMongoDb;
 	
 
-	//@CrossOrigin(origins="http://localhost:4200")
-	//@RequestMapping(value = "/guardar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	/**
+	 * Guarda nuevos usuarios.
+	 */
 	@PostMapping("/guardar")
 	public @ResponseBody ResponseEntity<String> guardar(@RequestBody Usuario usuario) {
 		ResponseEntity<String> respuesta = null;
@@ -62,7 +63,10 @@ public class ControladorUsuarios{
 		return respuesta;
 	}
 	
-	//@RequestMapping(value = "/listar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	/**
+	 * Lista los usuarios guardados.
+	 */
 	@GetMapping("/listar")
 	public @ResponseBody ResponseEntity<String> listarUsuarios() {
 		ResponseEntity<String> respuesta = null;
@@ -77,6 +81,9 @@ public class ControladorUsuarios{
 		return respuesta;
 	}
 	
+	/**
+	 * Borra un usuario del array o de la base de datos.
+	 */
 	@RequestMapping(value = "/borrar", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> borrarUsuario(@RequestParam("id") String id) {
 		ResponseEntity<String> respuesta = null;
@@ -91,6 +98,9 @@ public class ControladorUsuarios{
 		return respuesta;
 	}
 	
+	/**
+	 * Devuelve la información de un usuario en formato json
+	 */
 	@RequestMapping(value = "/usuario", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> getUsuario(@RequestParam("id") String id) {
 		ResponseEntity<String> respuesta = null;
@@ -105,6 +115,9 @@ public class ControladorUsuarios{
 		return respuesta;
 	}
 	
+	/**
+	 * Modifica los datos de un usuario.
+	 */
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<String> modificar(@RequestParam("id") String id,
 														@RequestParam(value="nombre") String nombre , 
@@ -124,7 +137,9 @@ public class ControladorUsuarios{
 
 	}
 	
-	//@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	/**
+	 * Realiza el login de un usuario en el backoffice.
+	 */
 	@PostMapping("/login")
 	public @ResponseBody ResponseEntity<String> login(@RequestBody Usuario usuario){		
 		ResponseEntity<String> respuesta = null;

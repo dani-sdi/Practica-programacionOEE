@@ -26,7 +26,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter{
 	private final String PREFIX = "Bearer ";
 	private final String SECRET = "Dr10-0491";
 
-
+	/**
+	 * Comprueba si el token es válido. En caso de no ser válido devuelve un resultado 403
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 		try {
@@ -55,8 +57,6 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter{
 
 	/**
 	 * Metodo para autenticarnos dentro del flujo de Spring
-	 * 
-	 * @param claims
 	 */
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
@@ -68,6 +68,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter{
 
 	}
 
+	/**
+	 * Comprueba si se a pasado por cabecera un token y si este comienza por el prefijo que le hemos asignado.
+	 */
 	private boolean existeJWTToken(HttpServletRequest request, HttpServletResponse res) {
 		String authenticationHeader = request.getHeader(HEADER);
 		if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))

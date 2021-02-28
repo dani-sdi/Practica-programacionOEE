@@ -22,7 +22,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class ServiciosUsuarioSesion implements IServiciosUsuario {
-	public int proximoIdUsuario = 1;
+	public int proximoIdUsuario = 1; //En mongo db el id se asigna automaticamente. En cambio, si elegimos como memória la sesión tendremos que hacerlo manualmente. El indice en el array no es posible utilizarlo ya que el id asignado podría pertenecer a un usuario que haya ssido borrado con anterioridad.
 	
 	@Override
 	public ResponseEntity<String> guardar(String nombre, String email, int edad, String pass, HttpServletRequest request, BCryptPasswordEncoder passCrpyt) {

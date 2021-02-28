@@ -30,16 +30,19 @@ public class PracticaOeeDanielApplication {
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			//Las peticiones recibidas pasaran por el filtro para comprobar que llevan un token correcto.
 			http.cors().and().csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/usuarios/login").permitAll() // /login y /guardar no se exvluyen de esta comprobación
 				.antMatchers(HttpMethod.POST, "/usuarios/guardar").permitAll()
 				.anyRequest().authenticated();
 			
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 		}
-		
+		/*
+		 * Permite las peticiones recibidas desde el servidor localhost:4200
+		 */
 	    @Bean
 	    public WebMvcConfigurer corsConfigurer() {
 	        return new WebMvcConfigurer() {
