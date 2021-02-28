@@ -12,7 +12,7 @@
 Como memoria permanente se emplea la base de datos no realacional MongoDB. El backend viene configurado para conectarse a la base de datos local por el puerto 27017 (puerto por defecto de mongoDB).</p>
 
 <h2>Frontend</h2>
-<p>En el archivo <strong>proxy.conf.json</strong> que se encuentra en el directorio raíz del proyecto viene configurado para enviar las peticiones a la dirección <strong> http://localhost:8080"</strong></p>
+<p>En el archivo <strong>proxy.conf.json</strong> que se encuentra en el directorio raíz del proyecto, está configurado para enviar las peticiones a la dirección <strong> http://localhost:8080</strong></p>
 
 
 <h2>Versiones</h2>
